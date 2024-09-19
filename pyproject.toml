@@ -27,3 +27,50 @@ Issues = "https://github.com/hntirgeam/tgbsms/issues"
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+
+# ----- Ruff
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "Q",
+    "G",
+    "ANN",
+    "RUF",                  
+    "SIM",
+    "SLF",
+    "RET",
+    "RSE",
+    "PT",
+    "T20",
+    "ICN",
+    "DJ",
+    "COM",
+    "B",
+    "S",
+    "UP",
+    "N",
+    "I",
+    "C90",
+]
+ignore = ["T201", "G004", "RUF001", "S113", "SIM115", "S311", "ANN002", "ANN003", "ANN101"]
+
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "double"
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+suppress-none-returning = true
+
+[tool.ruff.lint.isort]
+force-single-line = true
