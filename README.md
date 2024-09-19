@@ -6,7 +6,8 @@
 ## Features
 
 - Trims the text to fit Telegram's maximum length
-- Sends POST request to Telegram bot API
+- Sends text/images with Markdwon
+- HTML/Markdown/MarkdownV2 parse_modes
 
 ## Installation
 
@@ -23,14 +24,23 @@ To send a message using the **tgbsms**, you can use the `send_message` function.
 ```python
 from tgbsms import send_message
 
-send_message("test", telegram_chat_id="<chat_id>", telegram_bot_token="<your_bot_token>")
+# Send text
+send_message("message", telegram_chat_id="<chat_id>", telegram_bot_token="<your_bot_token>")
+# Send image with text
+send_message("message", telegram_chat_id="<chat_id>", telegram_bot_token="<your_bot_token>", image=open("image.png", "rb"))
+# Send text with Markdown
+send_message("__message__", telegram_chat_id="<chat_id>", telegram_bot_token="<your_bot_token>", parse_mode=ParseMode.MarkdownV2)
+# Send text with Markdown and image
+send_message("__message__", telegram_chat_id="<chat_id>", telegram_bot_token="<your_bot_token>", parse_mode=ParseMode.MarkdownV2, image=open("image.png", "rb"))
 ```
 
 ### Parameters:
 
 - **`text`**: The message to send (string). If the message exceeds 4000 characters, it will be cropped.
-- **`telegram_chat_id`**: (Optional, read below) The ID of the chat where the message will be sent. This can be an integer or a string.
-- **`telegram_bot_token`**: (Optional, read below) Your bot's TOKEN provided by Telegram.
+- **`image`**: BytestIO object,
+- **`parse_mode`**: ParseMode.HTML/Markdown/MarkdownV2 (`from enums import ParseMode`),
+- **`telegram_chat_id`**: (Optional) The ID of the chat where the message will be sent. This can be an integer or a string.
+- **`telegram_bot_token`**: (Optional) Your bot's TOKEN provided by Telegram.x
 
 ## Environment Variables
 
