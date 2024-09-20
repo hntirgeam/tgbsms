@@ -4,10 +4,10 @@ from io import BytesIO
 import requests
 from environs import Env
 
-from enums import ParseMode
-from exceptions import EmptyPayloadError
-from exceptions import NoTokenError
-from exceptions import WrongParseModeError
+from tgbsms.enums import ParseMode
+from tgbsms.exceptions import EmptyPayloadError
+from tgbsms.exceptions import NoTokenError
+from tgbsms.exceptions import WrongParseModeError
 
 env = Env(eager=False)
 env.read_env()
@@ -34,17 +34,17 @@ def send_message(
     telegram_bot_token = telegram_bot_token or env.str("TELEGRAM_BOT_TOKEN")
     telegram_chat_id = telegram_chat_id or env.str("TELEGRAM_CHAT_ID")
 
-    # Wrong parse_mode check
-    if parse_mode not in ["HTML", "Markdown", "MarkdownV2"]:
-        raise WrongParseModeError
+    # No credentials check
+    if telegram_bot_token is None or telegram_chat_id is None:
+        raise NoTokenError(ENV_ERROR_MSG)
 
     # No data check
     if not any([text, image]):
         raise EmptyPayloadError(NO_DATA_ERROR_MSG)
 
-    # No credentials check
-    if telegram_bot_token is None or telegram_chat_id is None:
-        raise NoTokenError(ENV_ERROR_MSG)
+    # Wrong parse_mode check
+    if parse_mode not in ["HTML", "Markdown", "MarkdownV2"]:
+        raise WrongParseModeError
 
     method = "sendMessage" if image is None else "sendPhoto"
     kword = "caption" if image else "text"
