@@ -64,7 +64,13 @@ def send_message(
     try:
         response = requests.post(url, data, files=files)
         response.raise_for_status()
-        logger.info(f"Message sent successfully ({response.status_code})")
+        
+        result = response.json().get("result")
+        msg_id = None
+        if result:
+            msg_id = result.get("message_id")
+            
+        logger.info(f"Message sent successfully (id: {msg_id})")
         return response.json()
     except requests.exceptions.RequestException as e:
         logger.error(f"Error sending message: {e}")
