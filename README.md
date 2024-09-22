@@ -21,6 +21,7 @@ pip install tgbsms
 To send a message using **tgbsms**, you can use the `send_message` function. Here's an example:
 
 ```python3
+from tgbsms import ParseMode
 from tgbsms import send_message
 
 send_message(
@@ -37,7 +38,7 @@ send_message(
 | Parameter              | Description                                                                               | Optional                                                   |
 | ---------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | **text**               | The message to send (string). If the message exceeds 4000 characters, it will be cropped. | Yes. If there is an image passed to function               |
-| **image**              | `file-like` or `BytesIO` object representing the image to send (optional).                | Yes. If there is a text passed to function                 |
+| **image**              | file-like object, BytesIO, or URL (ыек) representing the image to send                    | Yes. If there is a text passed to function                 |
 | **parse_mode**         | One of `ParseMode.HTML`, `ParseMode.Markdown`, or `ParseMode.MarkdownV2` (from `enums`)   | Yes. Defaults to `HTML`                                    |
 | **telegram_bot_token** | Your bot's token provided by [BotFather](https://t.me/BotFather).                         | Yes. If you export environment variable TELEGRAM_BOT_TOKEN |
 | **telegram_chat_id**   | The chat ID where the message will be sent. Can be an integer or string.                  | Yes. If you export environment variable TELEGRAM_CHAT_ID   |
