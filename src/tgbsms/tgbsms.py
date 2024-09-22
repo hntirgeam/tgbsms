@@ -25,7 +25,7 @@ NO_DATA_ERROR_MSG = "Payload is empty"
 
 def send_message(
     text: str = "",
-    image: BytesIO | None = None,
+    image: BytesIO | str | None = None,
     parse_mode: ParseMode = "HTML",
     telegram_chat_id: str | int | None = None,
     telegram_bot_token: str | None = None,
@@ -55,7 +55,11 @@ def send_message(
 
     files = None
     if image:
-        files = {"photo": image}
+        _data = {"photo": image}
+        if isinstance(image, str):
+            data.update(_data)
+        else:
+            files = _data
 
     try:
         response = requests.post(url, data, files=files)
