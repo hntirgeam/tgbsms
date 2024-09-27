@@ -12,7 +12,6 @@ from tgbsms.exceptions import WrongParseModeError
 env = Env(eager=False)
 env.read_env()
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("tgbsms")
 
 ENV_ERROR_MSG = """
