@@ -42,8 +42,10 @@ def send_message(
         raise EmptyPayloadError(NO_DATA_ERROR_MSG)
 
     # Wrong parse_mode check
-    if parse_mode not in [pm for pm in ParseMode]:
-        raise WrongParseModeError
+    try:
+        parse_mode = ParseMode[parse_mode]
+    except KeyError as e:
+        raise WrongParseModeError from e
 
     method = "sendMessage" if image is None else "sendPhoto"
     kword = "caption" if image else "text"
