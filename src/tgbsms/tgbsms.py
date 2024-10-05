@@ -42,7 +42,7 @@ def send_message(
         raise EmptyPayloadError(NO_DATA_ERROR_MSG)
 
     # Wrong parse_mode check
-    if parse_mode not in ["HTML", "Markdown", "MarkdownV2"]:
+    if parse_mode not in [pm for pm in ParseMode]:
         raise WrongParseModeError
 
     method = "sendMessage" if image is None else "sendPhoto"
@@ -50,7 +50,7 @@ def send_message(
     url = f"https://api.telegram.org/bot{telegram_bot_token}/{method}"
 
     cropped_text = text[:4000]
-    data = {"chat_id": telegram_chat_id, kword: cropped_text, "parse_mode": parse_mode}
+    data = {"chat_id": telegram_chat_id, kword: cropped_text, "parse_mode": parse_mode.value}
 
     files = None
     if image:
